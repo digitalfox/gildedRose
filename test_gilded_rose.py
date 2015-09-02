@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
+from subprocess import check_output
 
 from gilded_rose import Item, GildedRose
 
+
+
 class GildedRoseTest(unittest.TestCase):
-    def test_foo(self):
-        items = [Item("foo", 0, 0)]
-        gilded_rose = GildedRose(items)
-        gilded_rose.update_quality()
-        self.assertEquals("fixme", items[0].name)
+    def test_30_days_output(self):
+        self.assertEqual(check_output("texttest_fixture.py"), open("stdout.gr").read())
+
 
 if __name__ == '__main__':
     unittest.main()
