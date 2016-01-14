@@ -4,6 +4,7 @@
 AGED_BRIE = "Aged Brie"
 BACKSTAGE_PASSES_TAFKAL80ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert"
 SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros"
+CONJURED = "Conjured"
 
 
 def adjust_min_max_quality(item):
@@ -41,6 +42,16 @@ def update_quality_sulfuras_hand_of_ragnaros(item):
     item.quality = 80
 
 
+def update_quality_conjured(item):
+    item.sell_in = item.sell_in - 1
+    if item.sell_in < 0:
+        item.quality = item.quality - 4
+    else:
+        item.quality = item.quality - 2
+
+    adjust_min_max_quality(item)
+
+
 def update_quality_standard_item(item):
     item.sell_in = item.sell_in - 1
     if item.sell_in < 0:
@@ -55,7 +66,8 @@ class GildedRose(object):
     QUALITY_FUNCTION = {
         AGED_BRIE: update_quality_aged_brie,
         BACKSTAGE_PASSES_TAFKAL80ETC_CONCERT: update_quality_backstage_passes_TAFKAL80ETC_concert,
-        SULFURAS_HAND_OF_RAGNAROS: update_quality_sulfuras_hand_of_ragnaros
+        SULFURAS_HAND_OF_RAGNAROS: update_quality_sulfuras_hand_of_ragnaros,
+        CONJURED: update_quality_conjured
     }
 
     def __init__(self, items):
